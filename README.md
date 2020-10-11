@@ -37,7 +37,23 @@
 * [License](#license)
 * [Kontakt](#kontakt)
 
+<!-- Uputstvo za instalaciju -->
+## Uputstvo za instalaciju i lokalno korišćenje
+```sh
+$ git clone https://github.com/vlada1001/pJ-Project-Manager
+$ cd pJ-Project-Manager
+$ composer install
+$ yarn install && yarn build
+```
 
+Pokretanje servera u pozadini:
+```
+$ synfony serve -d
+```
+Zaustavljanje servera
+```
+$ symfony server:stop
+```
 
 <!-- O projektu -->
 ## O projektu
