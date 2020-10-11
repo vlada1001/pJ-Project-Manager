@@ -6,6 +6,7 @@
 		"ext-apcu": "*",
 		"ext-ctype": "*",
 		"ext-iconv": "*",
+		"ext-intl" : "*",
 		"composer/package-versions-deprecated": "^1.11",
 		"doctrine/common": "^2",
 		"doctrine/doctrine-bundle": "^2",
