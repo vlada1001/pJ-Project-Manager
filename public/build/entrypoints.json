@@ -1,0 +1,40 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.d94b3b43.js",
+        "/build/app.b3081982.js"
+      ],
+      "css": [
+        "/build/app.32750dda.css"
+      ]
+    },
+    "profile": {
+      "js": [
+        "/build/runtime.d94b3b43.js",
+        "/build/profile.1b2561af.js"
+      ],
+      "css": [
+        "/build/profile.9681ea77.css"
+      ]
+    },
+    "new_project": {
+      "js": [
+        "/build/runtime.d94b3b43.js",
+        "/build/new_project.8e8d28c5.js"
+      ],
+      "css": [
+        "/build/new_project.e098c520.css"
+      ]
+    },
+    "login": {
+      "js": [
+        "/build/runtime.d94b3b43.js",
+        "/build/login.b3dec6a7.js"
+      ],
+      "css": [
+        "/build/login.c9036818.css"
+      ]
+    }
+  }
+}

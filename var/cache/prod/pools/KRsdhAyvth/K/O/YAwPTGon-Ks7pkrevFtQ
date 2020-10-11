@@ -1,0 +1,254 @@
+<?php //%255BApp%255CEntity%255CTask%2524CLASSMETADATA%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\ClassMetadata'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\ClassMetadata')),
+        clone ($p['Doctrine\\ORM\\Id\\IdentityGenerator'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Id\\IdentityGenerator')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'name' => [
+                'App\\Entity\\Task',
+            ],
+            'namespace' => [
+                'App\\Entity',
+            ],
+            'rootEntityName' => [
+                'App\\Entity\\Task',
+            ],
+            'customRepositoryClassName' => [
+                'App\\Repository\\TaskRepository',
+            ],
+            'identifier' => [
+                [
+                    'id',
+                ],
+            ],
+            'generatorType' => [
+                4,
+            ],
+            'fieldMappings' => [
+                [
+                    'id' => [
+                        'fieldName' => 'id',
+                        'type' => 'integer',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'id' => true,
+                        'columnName' => 'id',
+                    ],
+                    'name' => [
+                        'fieldName' => 'name',
+                        'type' => 'string',
+                        'scale' => 0,
+                        'length' => 255,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'name',
+                    ],
+                    'description' => [
+                        'fieldName' => 'description',
+                        'type' => 'text',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => true,
+                        'precision' => 0,
+                        'columnName' => 'description',
+                    ],
+                    'priority' => [
+                        'fieldName' => 'priority',
+                        'type' => 'integer',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => true,
+                        'precision' => 0,
+                        'columnName' => 'priority',
+                    ],
+                    'creationDate' => [
+                        'fieldName' => 'creationDate',
+                        'type' => 'date',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'creation_date',
+                    ],
+                    'endDate' => [
+                        'fieldName' => 'endDate',
+                        'type' => 'date',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => true,
+                        'precision' => 0,
+                        'columnName' => 'end_date',
+                    ],
+                    'color' => [
+                        'fieldName' => 'color',
+                        'type' => 'string',
+                        'scale' => 0,
+                        'length' => 50,
+                        'unique' => false,
+                        'nullable' => true,
+                        'precision' => 0,
+                        'columnName' => 'color',
+                    ],
+                    'completed' => [
+                        'fieldName' => 'completed',
+                        'type' => 'boolean',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'completed',
+                    ],
+                ],
+            ],
+            'fieldNames' => [
+                [
+                    'id' => 'id',
+                    'name' => 'name',
+                    'description' => 'description',
+                    'priority' => 'priority',
+                    'creation_date' => 'creationDate',
+                    'end_date' => 'endDate',
+                    'color' => 'color',
+                    'completed' => 'completed',
+                ],
+            ],
+            'columnNames' => [
+                [
+                    'id' => 'id',
+                    'name' => 'name',
+                    'description' => 'description',
+                    'priority' => 'priority',
+                    'creationDate' => 'creation_date',
+                    'endDate' => 'end_date',
+                    'color' => 'color',
+                    'completed' => 'completed',
+                ],
+            ],
+            'table' => [
+                [
+                    'name' => 'task',
+                ],
+            ],
+            'associationMappings' => [
+                [
+                    'project' => [
+                        'fieldName' => 'project',
+                        'joinColumns' => [
+                            [
+                                'name' => 'project_id',
+                                'referencedColumnName' => 'id',
+                            ],
+                        ],
+                        'cascade' => [
+                            'remove',
+                        ],
+                        'inversedBy' => 'tasks',
+                        'targetEntity' => 'App\\Entity\\Project',
+                        'fetch' => 2,
+                        'type' => 2,
+                        'mappedBy' => null,
+                        'isOwningSide' => true,
+                        'sourceEntity' => 'App\\Entity\\Task',
+                        'isCascadeRemove' => true,
+                        'isCascadePersist' => false,
+                        'isCascadeRefresh' => false,
+                        'isCascadeMerge' => false,
+                        'isCascadeDetach' => false,
+                        'sourceToTargetKeyColumns' => [
+                            'project_id' => 'id',
+                        ],
+                        'joinColumnFieldNames' => [
+                            'project_id' => 'project_id',
+                        ],
+                        'targetToSourceKeyColumns' => [
+                            'id' => 'project_id',
+                        ],
+                        'orphanRemoval' => false,
+                    ],
+                    'creator' => [
+                        'fieldName' => 'creator',
+                        'joinColumns' => [
+                            [
+                                'name' => 'creator_id',
+                                'referencedColumnName' => 'id',
+                            ],
+                        ],
+                        'cascade' => [],
+                        'inversedBy' => 'createdTasks',
+                        'targetEntity' => 'App\\Entity\\User',
+                        'fetch' => 2,
+                        'type' => 2,
+                        'mappedBy' => null,
+                        'isOwningSide' => true,
+                        'sourceEntity' => 'App\\Entity\\Task',
+                        'isCascadeRemove' => false,
+                        'isCascadePersist' => false,
+                        'isCascadeRefresh' => false,
+                        'isCascadeMerge' => false,
+                        'isCascadeDetach' => false,
+                        'sourceToTargetKeyColumns' => [
+                            'creator_id' => 'id',
+                        ],
+                        'joinColumnFieldNames' => [
+                            'creator_id' => 'creator_id',
+                        ],
+                        'targetToSourceKeyColumns' => [
+                            'id' => 'creator_id',
+                        ],
+                        'orphanRemoval' => false,
+                    ],
+                    'user_working' => [
+                        'fieldName' => 'user_working',
+                        'joinColumns' => [
+                            [
+                                'name' => 'user_working_id',
+                                'referencedColumnName' => 'id',
+                            ],
+                        ],
+                        'cascade' => [],
+                        'inversedBy' => 'tasks',
+                        'targetEntity' => 'App\\Entity\\User',
+                        'fetch' => 2,
+                        'type' => 2,
+                        'mappedBy' => null,
+                        'isOwningSide' => true,
+                        'sourceEntity' => 'App\\Entity\\Task',
+                        'isCascadeRemove' => false,
+                        'isCascadePersist' => false,
+                        'isCascadeRefresh' => false,
+                        'isCascadeMerge' => false,
+                        'isCascadeDetach' => false,
+                        'sourceToTargetKeyColumns' => [
+                            'user_working_id' => 'id',
+                        ],
+                        'joinColumnFieldNames' => [
+                            'user_working_id' => 'user_working_id',
+                        ],
+                        'targetToSourceKeyColumns' => [
+                            'id' => 'user_working_id',
+                        ],
+                        'orphanRemoval' => false,
+                    ],
+                ],
+            ],
+            'idGenerator' => [
+                $o[1],
+            ],
+        ],
+    ],
+    $o[0],
+    []
+); }];
