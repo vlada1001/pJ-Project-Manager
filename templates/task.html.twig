@@ -1,0 +1,133 @@
+{% extends 'index.html.twig' %}
+
+{% block page_title %}
+    <div class="container text-center">
+        <h3 class="font-weight-light">
+            Zadatak: {{ task.name }}
+        </h3>
+
+        <p>Projekat: <a href="{{ path('app_show_project', {'project_id': task.project.id}) }}"
+                        style="text-decoration: underline darkgrey" data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Rok: {{ task.project.endDate|date('d.m.Y') }}.">{{ task.project.name }}</a></p>
+        <div class="row justify-content-center padding-10" style="margin: 0 !important">
+            <div class="col-6 col-sm-3">
+                <p>Prioritet: </p> {{ task.priority }}
+            </div>
+            <div class="col-6 col-sm-3">
+                <p>Status: </p>
+                <p
+                        {% if bool_translate(task.completed) == 'Završeno' %}
+                            style="color:#4dd64d !important;"
+                        {% else %}
+                            style="color:indianred !important;"
+                        {% endif %}
+                >{{ bool_translate(task.completed) }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block pre_content %}
+    <div class="padding-10"></div>
+    <div class="container padding-10">
+        <div class="row justify-content-center" style="margin-right: 0!important;">
+            <div class="col col-md-5">
+                <p>Napravio: </p>
+                {% if task.creator %}
+                    <a href="{{ path('app_user_show', {id: task.creator.id}) }}"
+                       style="text-decoration: underline rgba(0, 0, 0, 0.5)" data-toggle="tooltip"
+                       data-placement="bottom"
+                       title="{{ task.creator.email }}">
+                        {{ task.creator.firstName }} {{ task.creator.lastName }}
+                    </a>
+                {% else %}
+                    <p>/</p>
+                {% endif %}
+            </div>
+            <div class="col col-md-5">
+                <p>Trenutno zadužen: </p>
+                {% if task.userWorking %}
+                    <a href="{{ path('app_user_show', {id: task.userWorking.id}) }}"
+                       style="text-decoration: underline rgba(0, 0, 0, 0.5)" data-toggle="tooltip"
+                       data-placement="bottom"
+                       title="{{ task.userWorking.email }}">
+                        {{ task.userWorking.firstName }} {{ task.userWorking.lastName }}
+                    </a>
+                {% else %}
+                    <p>/</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row padding-10 justify-content-center" style="margin-right: 0 !important">
+            <div class="col col-md-5">
+                <p>Datum kreiranja: </p>
+                {% if task.creationDate %}
+                    {{ task.creationDate|format_date('full', '', null, 'gregorian', 'sr_Latn') }}
+                {% else %}
+                    <p>/</p>
+                {% endif %}
+            </div>
+            <div class="col col-md-5">
+                <p>Rok završetka: </p>
+                {% if task.endDate %}
+                    {{ task.endDate|format_date('full', '', null, 'gregorian', 'sr_Latn') }}
+                {% else %}
+                    <p>/</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row text-justify justify-content-center padding-10">
+            <div class="col-12 col-md-8">
+                <p>Opis: </p>
+                {% if task.description %}
+                    {{ task.description }}
+                {% else %}
+                    <p>/</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block display_options %}
+    <div class="line-small padding-10"></div>
+{% endblock %}
+
+{% block new_card %}
+{% endblock %}
+
+{% block page_content %}
+    {% if (task.creator is not null and task.creator.id == app.user.id) or (task.userWorking is not null and task.userWorking.id == app.user.id) %}
+        <div class="container padding-10">
+            <div class="row justify-content-center" style="margin: 0!important;">
+                <div class="col-6 col-sm-3 padding-10">
+                    <div class="text-center">
+                        <a href="{{ path('app_edit_task', {project_id: task.project.id, task_id:task.id}) }}"
+                           class="btn btn-outline-dark text-uppercase font-weight-normal hover-white-color"
+                           value="submit"
+                           type="submit">
+                            Promeni
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 padding-10">
+                    <div class="text-center">
+                        <button class="btn btn-danger text-uppercase font-weight-normal" name="delete" value="delete"
+                                type="submit">
+                            Obriši
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts_onload_document %}
+    {{ parent() }}
+
+    $('[data-toggle="tooltip"]').tooltip();
+{% endblock %}

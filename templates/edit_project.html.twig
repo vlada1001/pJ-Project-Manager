@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projekat - pJ{% endblock %}
+
+{% block custom_stylesheets %}
+
+    {{ encore_entry_link_tags('new_project') }}
+{% endblock %}
+{% block nav %}{% endblock %}
+
+{% block body %}
+    {% include 'simple_header.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-10 col-sm-9 col-md-7 col-xl-4">
+                <h4 class="font-weight-normal">Izmena projekta - {{ project.name }}</h4>
+                <div class="row">
+                    <div class="col">
+                        <p>Napravio: </p>
+                        {% if project.creator is not null %}
+                            <a href="{{ path('app_user_show', {id: project.creator.id}) }}" data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="{{ project.creator.email }}"
+                               style="color: darkgrey; text-decoration: underline darkgrey">{{ project.creator.firstName }} {{ project.creator.lastName }}</a>
+                        {% else %}
+                            <p>/</p>
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        <p>Datum kreiranja: </p>
+                        <p>{{ project.creationDate|date('d.m.Y') }}</p>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger center">{{ error }}</div>
+                    {% endif %}
+                    <div class="form-row">
+                        <div class="form-group col-12 col-sm-6">
+                            <label for="projectName">Naziv projekta</label>
+                            <input type="text" class="form-control" id="projectName" name="projectName"
+                                   placeholder="{{ project.name }}">
+                        </div>
+
+                        <div class="form-group col-12 col-sm-6">
+                            <label for="team">Dodeli projekat timu</label>
+                            <select id="team" name="team" class="custom-select">
+                                {% for team in teams %}
+                                    <option value="{{ team.id }}"
+                                            {% if team.id == app.user.team.id %}selected{% endif %}>
+                                        {{ team.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group col-12 col-sm-6">
+                            <label for="deadline">Datum završetka</label>
+                            <input type="date" class="form-control" id="deadline" name="deadline"
+                                   value="{{ project.endDate|date('Y-m-d') }}">
+                        </div>
+
+                        <div class="form-group col-8 col-sm-6">
+                            <label for="color">Boja</label>
+                            <select id="color" name="color" class="custom-select">
+                                {% for color, hex in colors %}
+                                    <option value="{{ hex }}" {% if project.color == hex %}selected{% endif %}>
+                                        {{ color }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group col-8 col-sm-6">
+                            <label for="completed">Status</label>
+                            <select id="completed" name="completed" class="custom-select">
+                                <option value="true" {% if project.completed %}selected{% endif %}>
+                                    Završen
+                                </option>
+
+                                <option value="false" {% if not project.completed %}selected{% endif %}>
+                                    Nije završen
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-4 col-sm-2">
+                            <label for="priority">Prioritet</label>
+                            <input type="text" class="form-control" id="priority" name="priority"
+                                   value="{{ project.priority }}">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="projectDescription">Opis projekta</label>
+                        <textarea class="form-control" id="projectDescription" name="projectDescription"
+                                  style="height: 150px">{{ project.description }}</textarea>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-lg btn-outline-dark btn-login text-uppercase font-weight-normal"
+                                name="submit" value="submit" type="submit" style="margin-top: 10px !important">
+                            Sačuvaj izmene
+                        </button>
+                    </div>
+
+                </form>
+                <div style="height:80px"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts_onload_document %}
+    {{ parent() }}
+
+    $('[data-toggle="tooltip"]').tooltip();
+{% endblock %}

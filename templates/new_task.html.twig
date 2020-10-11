@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Novi Zadatak - pJ{% endblock %}
+
+{% block custom_stylesheets %}
+
+    {{ encore_entry_link_tags('new_project') }}
+{% endblock %}
+{% block nav %}{% endblock %}
+
+{% block body %}
+    {% include 'simple_header.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-10 col-sm-9 col-md-7 col-xl-4">
+                <h4 class="font-weight-normal">Novi zadatak</h4>
+                <div class="line"></div>
+                <div class="text-danger"></div>
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger center">{{ error }}</div>
+                    {% endif %}
+
+                    <div class="form-row">
+                        <div class="form-group col-12 col-sm-6">
+                            <label for="taskName">Naziv zadatka</label>
+                            <input type="text" class="form-control" id="taskName" name="taskName" required>
+                            <div class="text-danger"></div>
+                        </div>
+
+                        <div class="form-group col-12 col-sm-6">
+                            <label for="worker">Dodeli zadatak</label>
+                            <select id="worker" name="worker" class="custom-select" required>
+                                {% for worker in workers %}
+                                    <option value="{{ worker.id }}"
+                                            {% if worker.id == app.user.id %}selected{% endif %}>
+                                        {{ worker.firstName }} {{ worker.lastName }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+
+                        <div class="form-group col-12 col-sm-6">
+                            <label for="deadline">Datum završetka</label>
+                            <input type="date" class="form-control" id="deadline" name="deadline"
+                                   value="2020-10-04">
+                        </div>
+
+                        <div class="form-group col-12 col-sm-6">
+                            <label for="color">Boja</label>
+                            <select id="color" name="color" class="custom-select">
+                                <option value="-1" selected disabled>Izaberi boju</option>
+                                <br>
+
+                                {% for color, hex in colors %}
+                                    <option value="{{ hex }}">
+                                        {{ color }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group col-2">
+                            <label for="priority">Prioritet</label>
+                            <input type="text" class="form-control" id="priority" name="priority" value="1">
+                            <div class="text-danger"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="taskDescription">Opis projekta</label>
+                        <textarea class="form-control" id="taskDescription" name="taskDescription"
+                                  placeholder=".  .  ."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-lg btn-outline-dark btn-login text-uppercase font-weight-normal"
+                                name="submit" value="submit" type="submit">
+                            Napravi zadatak
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

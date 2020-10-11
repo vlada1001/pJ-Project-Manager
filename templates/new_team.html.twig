@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Novi Tim - pJ{% endblock %}
+
+{% block custom_stylesheets %}
+
+    {{ encore_entry_link_tags('new_project') }}
+{% endblock %}
+{% block nav %}{% endblock %}
+
+{% block body %}
+    {% include 'simple_header.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-10 col-sm-9 col-md-7 col-xl-4">
+                <h4 class="font-weight-normal">Novi tim</h4>
+                <div class="line"></div>
+                <div class="text-danger"></div>
+                <form method="POST">
+                    {% if error %}
+                        <div class="alert alert-danger center">{{ error }}</div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="teamName">Naziv tima</label>
+                        <input type="text" class="form-control" id="teamName" name="teamName" required>
+                        <div class="text-danger"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="teamDescription">Opis tima</label>
+                        <textarea class="form-control" id="teamDescription" name="teamDescription"
+                                  placeholder=".  .  ." value=""></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        {% if users %}
+                            <p>Dodaj neraspoređene korisnike</p>
+
+                            {% for user in users %}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="user-{{ user.id }}"
+                                           value="{{ user.id }}"
+                                           name='users[]'>
+                                    <label class="form-check-label" for="user-{{ user.id }}">
+                                        {{ user.firstName }} {{ user.lastName }} - {{ user.id }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="project">Dodeli projekat timu</label>
+                        <select id="color" name="project" class="custom-select">
+                            <option value="-1" selected disabled>Izaberi projekat</option>
+
+                            {% if projects is defined %}
+                                {% for project in projects %}
+                                    <option value="{{ project.id }}">
+                                        {{ project.name }}
+                                    </option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-lg btn-outline-dark btn-login text-uppercase font-weight-normal"
+                                name="submit" value="submit" type="submit">
+                            Napravi tim
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

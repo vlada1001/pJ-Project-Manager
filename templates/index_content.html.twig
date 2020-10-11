@@ -1,0 +1,26 @@
+{% extends 'index.html.twig' %}
+
+{% block page_title %}
+    <div class="container text-center">
+        <h3 class="font-weight-light">
+            Dobrodošli {{ app.user.firstName }}
+        </h3>
+    </div>
+{% endblock %}
+
+{% block pre_content %}
+    <p>Projekti</p>
+{% endblock %}
+
+{% block page_content %}
+    {% set vars = {'route' : 'app_show_project'} %}
+
+        {% if projects is defined and projects is not empty %}
+            {% for item in projects %}
+                {% set project_id = item.id %}
+                {{ include('card/card.html.twig') }}
+            {% endfor %}
+        {% else %}
+            <p>Nema projekata</p>
+        {% endif %}
+{% endblock %}

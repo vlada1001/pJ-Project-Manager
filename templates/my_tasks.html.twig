@@ -1,0 +1,22 @@
+{% extends 'index.html.twig' %}
+
+{% block page_title %}
+    <p style="font-size: 1.75rem;">Moji zadaci</p>
+{% endblock %}
+
+{% block new_card %}
+{% endblock %}
+
+{% set route = 'app_user_add_task' %}
+
+{% block page_content %}
+    {% if not tasks %}
+        <p>Nemate zadataka</p>
+    {% else %}
+        {% for item in tasks %}
+            {% set project_id = item.project.id %}
+            {% set vars = {route : 'app_show_task', 'project_id': project_id, 'task_id': item.id} %}
+            {% include 'card/card.html.twig' %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

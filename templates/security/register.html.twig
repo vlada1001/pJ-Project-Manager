@@ -1,0 +1,91 @@
+{% extends 'basic_base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+            <div class="col-md-8 col-lg-6">
+                <div class="login d-flex align-items-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-8 mx-auto">
+                                <h1 class="login-heading mb-4 text-center">Dobrodošli na pJ!</h1>
+
+                                {# todo: zameni sa Symfony formom kasnije #}
+                                <form method="post">
+                                     {% if error %}
+                                     <div class="alert alert-danger center">{{ error }}</div>
+                                     {% endif %}
+
+                                    {% if app.user %}
+                                        <div class="mb-3 text-center">
+                                            Prijavljeni ste kao <b>{{ app.user.username }}</b>
+                                            <div class="padding-10"></div>
+                                            <a class="btn btn-lg btn-danger text-uppercase font-weight-normal"
+                                               href="{{ path('app_logout') }}">Odjavi se</a>
+
+                                            <div class="padding-10"></div>
+                                            <a class="btn btn-lg btn-index text-uppercase font-weight-normal"
+                                               href="{{ path('app_homepage') }}">Početna strana</a>
+                                        </div>
+                                    {% else %}
+                                        <h1 class="h3 mb-3 font-weight-normal text-center">Prijavi se</h1>
+                                        {# <br> #}
+                                        <div class="form-label-group">
+                                            <input type="email" name="email"
+                                                   value=""
+                                                   id="inputEmail" class="form-control" placeholder="Email adresa"
+                                                   required autofocus>
+                                            <label for="inputEmail">Email adresa</label>
+                                        </div>
+
+                                        <div class="form-label-group">
+                                            <input type="text" name="firstName" value=""
+                                                   id="firstName" class="form-control" placeholder="Ime" required>
+                                            <label for="firstName">Ime</label>
+                                        </div>
+
+                                        <div class="form-label-group">
+                                            <input type="text" name="lastName"
+                                                   value=""
+                                                   id="lastName" class="form-control" placeholder="Prezime" required>
+                                            <label for="lastName">Prezime</label>
+                                        </div>
+
+                                        <div class="form-label-group">
+                                            <input type="password" name="password"
+                                                   value="" id="inputPassword"
+                                                   class="form-control"
+                                                   placeholder="Šifra" required>
+                                            <label for="inputPassword">Šifra</label>
+                                        </div>
+
+                                        <div class="form-label-group">
+                                            <input type="password" name="password_rep"
+                                                   value=""
+                                                   id="password_rep"
+                                                   class="form-control"
+                                                   placeholder="Šifra" required>
+                                            <label for="password_rep">Šifra</label>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button class="btn btn-lg btn-index text-uppercase font-weight-normal"
+                                                    name="submit" value="submit" type="submit">Registruj se
+                                            </button>
+                                            <div class="text-center">
+                                                <a class="small" href="{{ path('app_login') }}">Prijavi se</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

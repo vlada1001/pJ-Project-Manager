@@ -1,0 +1,16 @@
+ ------------------ -------- -------- ------ -------------------------- 
+  Name               Method   Scheme   Host   Path                      
+ ------------------ -------- -------- ------ -------------------------- 
+  _preview_error     ANY      ANY      ANY    /_error/{code}.{_format}  
+  app_user           ANY      ANY      ANY    /profile                  
+  app_user_update    POST     ANY      ANY    /profile/update           
+  app_user_tasks     ANY      ANY      ANY    /my-tasks                 
+  app_edit_project   ANY      ANY      ANY    /project/{id}/edit        
+  app_edit_task      ANY      ANY      ANY    /project/task/{id}/edit   
+  app_add_project    ANY      ANY      ANY    /project/new              
+  app_add_task       ANY      ANY      ANY    /project/task/new         
+  app_show_project   ANY      ANY      ANY    /project/{id}             
+  app_show_task      ANY      ANY      ANY    /project/task/{id}        
+  app_homepage       ANY      ANY      ANY    /                         
+  app_add_team       ANY      ANY      ANY    /new-team                 
+ ------------------ -------- -------- ------ -------------------------- 

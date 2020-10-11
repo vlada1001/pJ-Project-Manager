@@ -1,0 +1,144 @@
+{% extends 'index.html.twig' %}
+
+{% block page_title %}
+    <div class="container text-center">
+        <h3 class="font-weight-light">
+            Projekat: {{ project.name }}
+        </h3>
+
+        <div class="row justify-content-center" style="margin: 0 !important">
+            {% if project.tasks|length > 0 %}
+                {% if project.tasks|length == zavrseno_zad %}
+                    <p>Status: &nbsp;</p> <p style="color: lawngreen !important">{{ zavrseno_zad }}
+                    od {{ project.tasks|length }}
+                    završeno</p>
+                {% else %}
+                    <p>Status: &nbsp;</p> <p style="color: black !important">{{ zavrseno_zad }}
+                    od {{ project.tasks|length }}
+                    završeno</p>
+                {% endif %}
+            {% elseif project.completed %}
+                <p>Status: &nbsp;</p><p style="color: lawngreen !important">Završeno</p>
+            {% else %}
+                <p>Status: &nbsp;</p><p style="color: indianred !important">Nezavršeno</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block project_desc %}
+
+{% endblock %}
+
+{% block pre_content %}
+    <div class="container padding-10">
+        <div class="row justify-content-center" style="margin-right: 0!important;">
+            <div class="col col-md-5">
+                <p>Napravio: </p>
+                {% if project.creator %}
+                    <a href="{{ path('app_user_show', {id: project.creator.id}) }}"
+                       style="text-decoration: underline rgba(0, 0, 0, 0.5)" data-toggle="tooltip"
+                       data-placement="bottom"
+                       title="{{ project.creator.email }}">
+                        {{ project.creator.firstName }} {{ project.creator.lastName }}
+                    </a>
+                {% else %}
+                    <p>/</p>
+                {% endif %}
+            </div>
+            <div class="col col-md-5">
+                <p>Trenutno zadužen: </p>
+                <p>/</p>
+            </div>
+        </div>
+
+        <div class="row padding-10 justify-content-center" style="margin-right: 0 !important">
+            <div class="col col-md-5">
+                <p>Datum kreiranja: </p>
+                {% if project.creationDate %}
+                    {{ project.creationDate|format_date('full', '', null, 'gregorian', 'sr_Latn') }}
+                {% else %}
+                    <p>/</p>
+                {% endif %}
+            </div>
+            <div class="col col-md-5">
+                <p>Rok završetka: </p>
+                {% if project.endDate %}
+                    {{ project.endDate|format_date('full', '', null, 'gregorian', 'sr_Latn') }}
+                {% else %}
+                    <p>/</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row text-justify justify-content-center padding-10">
+            <div class="col-12 col-md-8">
+                <p>Opis: </p>
+                {% if project.description %}
+                    {{ project.description }}
+                {% else %}
+                    <p>/</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="workers" class="row justify-content-center">
+            <div class="col">
+                <p>Radnici na projektu:</p>
+                {% for worker in project.creator.team.users %}
+                    <a href="{{ path('app_user_show', {id:worker.id}) }}" data-toggle="tooltip" data-placement="bottom"
+                       title="{{ worker.email }}">{{ worker.firstName }} {{ worker.lastName }} &nbsp;
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+    {% if project.creator is not null and project.creator.id == app.user.id %}
+        <div class="container padding-10">
+            <div class="row justify-content-center" style="margin: 0!important;">
+                <div class="col-6 col-sm-3 padding-10">
+                    <div class="text-center">
+                        <a href="{{ path('app_edit_project', {project_id: project.id}) }}"
+                           class="btn btn-outline-dark text-uppercase font-weight-normal hover-white-color"
+                           value="submit"
+                           type="submit">
+                            Promeni
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 padding-10">
+                    <div class="text-center">
+                        <button class="btn btn-danger text-uppercase font-weight-normal" name="delete" value="delete"
+                                type="submit">
+                            Obriši
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if project.tasks is not empty %}
+        <p>Zadaci</p>
+    {% endif %}
+{% endblock %}
+
+{% block page_content %}
+    {% set vars = {'route' : 'app_show_task'} %}
+    {% if tasks is defined and tasks is not empty %}
+        {% for item in tasks %}
+            {{ include('card/card.html.twig') }}
+        {% endfor %}
+    {% else %}
+        <p>Nema zadataka</p>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts_onload_document %}
+    {{ parent() }}
+
+    $('[data-toggle="tooltip"]').tooltip();
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block custom_stylesheets %}
+
+    {{ encore_entry_link_tags('new_project') }}
+    {{ encore_entry_link_tags('profile') }}
+{% endblock %}
+{% block nav %}{% endblock %}
+
+{% block body %}
+    {% include 'simple_header.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-10 col-sm-9 col-md-6 col-xl-4">
+
+                <div class="d-flex justify-content-center">
+                    <div class="image_outer_container">
+                        <div class="image_inner_container">
+                            <img src="{{ user.avatarUrl(150,150) }}" alt="profile picture"
+                                 class="img-fluid profile-pic" data-toggle="tooltip"
+                                 data-placement="bottom"
+                                 title="id: {{ user.id }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row"  style="margin-top: 10px !important">
+                    <div class="col-md-6 text-center">
+                        <p>Ime i prezime</p>
+                        {{ user.firstName }} {{ user.lastName }}
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <p>Tim</p>
+                        {% if user.team is not null %}
+                            {{ user.team.name }}
+                        {% else %}
+                            Neraspoređen
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row justify-content-center text-center" style="margin-top: 10px !important">
+                    <div class="col-xl-10 col-md-10 col-sm-12">
+                        <p>Email</p>
+                        {{ user.email }}
+                    </div>
+                </div>
+
+                <div class="row justify-content-center text-center"  style="margin-top: 10px !important">
+                    <div class="col-6">
+                        <p>Datum registracije</p>
+                        {{ user.registrationDate|date('d-m-Y') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts_onload_document %}
+    {{ parent() }}
+
+    $('[data-toggle="tooltip"]').tooltip();
+{% endblock %}

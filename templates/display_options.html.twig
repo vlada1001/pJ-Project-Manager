@@ -1,0 +1,24 @@
+{% block display_options %}
+    <div class="text-right">
+        <div class="dropdown">
+            <button class="btn btn-sm btn-link" type="button" id="dropdownMenu2"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sortiraj po <i class="fas fa-sort-down"></i>
+            </button>
+            <div class="line-small"></div>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" type="button" onclick="showContent('prioritet')">prioritetu
+                    (opadajući)
+                </button>
+                <button class="dropdown-item" type="button" onclick="showContent('starost')">starosti
+                    (noviji
+                    prvo)
+                </button>
+                <button class="dropdown-item" type="button" onclick="showContent('zavrsenost')">završenosti
+                    (opadajući)
+                </button>
+                <button class="dropdown-item" type="button" onclick="showContent('tim')">moj tim</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
